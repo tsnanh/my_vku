@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:myvku/screens/news/news_screen.dart';
+import 'package:myvku/screens/timetable/timetable_screen.dart';
 
-const List<Widget> widgets = [
-
+final List<Widget> widgets = [
+  NewsScreen(),
+  TimetableScreen()
 ];
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (value) => currentIndex = value,
+        onTap: (value) => setState(() => currentIndex = value),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.web_outlined),
