@@ -2,13 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myvku/data/remote/news/news_repository.dart';
 import 'package:myvku/screens/news/pages/news_state.dart';
 
-class MakeupCubit extends Cubit<NewsState> {
+class NewsCubit extends Cubit<NewsState> {
   final NewsRepository _repository = NewsRepository();
-  MakeupCubit(NewsState initialState) : super(initialState);
+  NewsCubit(NewsState initialState) : super(initialState);
 
-  void getMakeupClasses() async {
+  void getNewsClasses() async {
     try {
-      emit(NewsSuccess(await _repository.getMakeupClasses()));
+      emit(NewsSuccess(await _repository.getNews()));
     } catch (e) {
       emit(NewsError());
     }

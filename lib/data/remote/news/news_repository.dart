@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:myvku/data/remote/vku_service.dart';
 import 'package:myvku/models/absence.dart';
 import 'package:myvku/models/makeup_class.dart';
+import 'package:myvku/models/news.dart';
 
 class NewsRepository {
   // region singleton stuffs
@@ -15,6 +16,14 @@ class NewsRepository {
   // endregion
 
   final _service = VKUService(Dio());
+
+  Future<List<News>> getNews() async {
+    final String response = await _service.getNews();
+    final List<dynamic> list = jsonDecode(response);
+
+    print(list);
+    return List.empty();
+  }
 
   Future<List<Absence>> getAbsences() async {
     final String response = await _service.getAbsences();
