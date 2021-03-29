@@ -1,10 +1,13 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:myvku/data/local/database_helper.dart';
 import 'package:myvku/data/remote/vku_service.dart';
+import 'package:myvku/extension/string.dart';
 import 'package:myvku/models/absence.dart';
 import 'package:myvku/models/makeup_class.dart';
 import 'package:myvku/models/news.dart';
+import 'package:myvku/screens/main/main.dart';
 
 class NewsRepository {
   // region singleton stuffs
@@ -13,16 +16,33 @@ class NewsRepository {
   factory NewsRepository() => _repository;
 
   NewsRepository._internal();
+
   // endregion
 
-  final _service = VKUService(Dio());
+  final _service = getIt.get<VKUService>();
+
+  static const platform = const MethodChannel("dev.tsnanh.myvku/news");
+  final database = DatabaseHelper();
 
   Future<List<News>> getNews() async {
-    final String response = await _service.getNews();
-    final List<dynamic> list = jsonDecode(response);
+    try {
+      final String response = await _service.getNews();
 
-    print(list);
-    return List.empty();
+      final List<dynamic> list = jsonDecode(response);
+      final news = list.map((e) {
+        final news = News.fromJson(e);
+        news.title = news.title
+            .decodeUnicode()!
+            .replaceAll("\"", "")
+            .replaceAll("\\", "");
+        return news;
+      }).toList();
+      print(await database.getNews());
+      // await database.insertAllNews(news);
+      return news;
+    } on PlatformException catch (e) {
+      throw e;
+    }
   }
 
   Future<List<Absence>> getAbsences() async {

@@ -9,8 +9,11 @@ class NewsLoading extends NewsState {
   List<Object?> get props => [];
 }
 
+// ignore: must_be_immutable
 class NewsError extends NewsState {
-  NewsError();
+  Exception? error;
+
+  NewsError({this.error});
 
   @override
   List<Object?> get props => [];
