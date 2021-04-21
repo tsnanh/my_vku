@@ -4,9 +4,16 @@ import 'package:myvku/models/makeup_class.dart';
 import 'package:myvku/screens/news/pages/makeup/cubit/makeup_cubit.dart';
 import 'package:myvku/screens/news/pages/news_state.dart';
 
-class PageMakeupScreen extends StatelessWidget {
+class PageMakeupScreen extends StatefulWidget {
+  @override
+  _PageMakeupScreenState createState() => _PageMakeupScreenState();
+}
+
+class _PageMakeupScreenState extends State<PageMakeupScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<MakeupCubit>(
       create: (context) => MakeupCubit(NewsLoading())..getMakeupClasses(),
       child: BlocBuilder<MakeupCubit, NewsState>(
@@ -71,4 +78,7 @@ class PageMakeupScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

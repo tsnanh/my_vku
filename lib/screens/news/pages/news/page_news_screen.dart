@@ -7,9 +7,16 @@ import 'package:myvku/screens/news/pages/news/cubit/news_cubit.dart';
 import 'package:myvku/screens/news/pages/news_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PageNewsScreen extends StatelessWidget {
+class PageNewsScreen extends StatefulWidget {
+  @override
+  _PageNewsScreenState createState() => _PageNewsScreenState();
+}
+
+class _PageNewsScreenState extends State<PageNewsScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocProvider<NewsCubit>(
@@ -124,4 +131,7 @@ class PageNewsScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

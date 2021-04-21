@@ -4,9 +4,16 @@ import 'package:myvku/models/absence.dart';
 import 'package:myvku/screens/news/pages/absence/cubit/absence_cubit.dart';
 import 'package:myvku/screens/news/pages/news_state.dart';
 
-class PageAbsenceScreen extends StatelessWidget {
+class PageAbsenceScreen extends StatefulWidget {
+  @override
+  _PageAbsenceScreenState createState() => _PageAbsenceScreenState();
+}
+
+class _PageAbsenceScreenState extends State<PageAbsenceScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocProvider<AbsenceCubit>(
       create: (context) => AbsenceCubit(NewsLoading())..getAbsences(),
       child: BlocBuilder<AbsenceCubit, NewsState>(
@@ -74,4 +81,7 @@ class PageAbsenceScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

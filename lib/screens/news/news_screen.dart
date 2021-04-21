@@ -10,9 +10,16 @@ final List<Widget> _tabs = [
   PageMakeupScreen()
 ];
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends StatefulWidget {
+  @override
+  _NewsScreenState createState() => _NewsScreenState();
+}
+
+class _NewsScreenState extends State<NewsScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return DefaultTabController(
       initialIndex: 0,
       length: _tabs.length,
@@ -57,4 +64,7 @@ class NewsScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
