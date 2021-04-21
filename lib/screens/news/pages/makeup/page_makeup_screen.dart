@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myvku/models/makeup_class.dart';
 import 'package:myvku/screens/news/pages/makeup/cubit/makeup_cubit.dart';
-import 'package:myvku/screens/news/pages/makeup/cubit/makeup_state.dart';
+import 'package:myvku/screens/news/pages/news_state.dart';
 
 class PageMakeupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MakeupCubit>(
-      create: (context) => MakeupCubit(MakeupLoading())..getMakeupClasses(),
-      child: BlocBuilder<MakeupCubit, MakeupState>(
+      create: (context) => MakeupCubit(NewsLoading())..getMakeupClasses(),
+      child: BlocBuilder<MakeupCubit, NewsState>(
         builder: (context, state) {
-          if (state is MakeupLoading) {
+          if (state is NewsLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is MakeupError) {
+          } else if (state is NewsError) {
             return Container();
-          } else if (state is MakeupSuccess) {
+          } else if (state is NewsSuccess) {
             return ListView.builder(
               padding: EdgeInsets.all(8),
               physics: BouncingScrollPhysics(),
-              itemCount: state.makeupClasses.length,
+              itemCount: state.data.length,
               itemBuilder: (context, index) =>
-                  makeupItemBuilder(context, state.makeupClasses[index]),
+                  makeupItemBuilder(context, state.data[index]),
             );
           } else {
             return Container();

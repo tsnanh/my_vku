@@ -3,15 +3,16 @@ import 'package:myvku/repository/news/news_repository.dart';
 import 'package:myvku/screens/main/main.dart';
 import 'package:myvku/screens/news/pages/news_state.dart';
 
-class MakeupCubit extends Cubit<NewsState> {
+class NewsCubit extends Cubit<NewsState> {
   final NewsRepository _repository = getIt.get<NewsRepository>();
-  MakeupCubit(NewsState initialState) : super(initialState);
+  NewsCubit(NewsState initialState) : super(initialState);
 
-  void getMakeupClasses() async {
+  void getNewsClasses() async {
     try {
-      emit(NewsSuccess(await _repository.getMakeupClasses()));
-    } catch (e) {
-      emit(NewsError());
+      emit(NewsSuccess(await _repository.getNews()));
+    } on Exception catch (e) {
+      print(e);
+      emit(NewsError(error: e));
     }
   }
 }

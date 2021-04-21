@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myvku/models/absence.dart';
 import 'package:myvku/screens/news/pages/absence/cubit/absence_cubit.dart';
-import 'package:myvku/screens/news/pages/absence/cubit/absence_state.dart';
+import 'package:myvku/screens/news/pages/news_state.dart';
 
 class PageAbsenceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AbsenceCubit>(
-      create: (context) => AbsenceCubit(AbsencesLoading())..getAbsences(),
-      child: BlocBuilder<AbsenceCubit, AbsenceState>(
+      create: (context) => AbsenceCubit(NewsLoading())..getAbsences(),
+      child: BlocBuilder<AbsenceCubit, NewsState>(
         builder: (context, state) {
-          if (state is AbsencesLoading) {
+          if (state is NewsLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is AbsencesError) {
+          } else if (state is NewsError) {
             return SnackBar(content: Text("Failed"));
-          } else if (state is AbsencesSuccess) {
+          } else if (state is NewsSuccess) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: ListView.builder(
-                itemCount: state.absences.length,
+                itemCount: state.data.length,
                 padding: EdgeInsets.all(8),
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) =>
-                    absenceListItemBuilder(context, state.absences[index]),
+                    absenceListItemBuilder(context, state.data[index]),
               ),
             );
           } else {

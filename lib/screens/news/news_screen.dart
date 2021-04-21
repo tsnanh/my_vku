@@ -17,21 +17,37 @@ class NewsScreen extends StatelessWidget {
       initialIndex: 0,
       length: _tabs.length,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: VKUTopAppBar(
-          bottom: TabBar(
-            physics: BouncingScrollPhysics(),
-            isScrollable: true,
-            tabs: [
-              Tab(
-                text: "NEWS",
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(52),
+            child: Container(
+              color: Colors.white,
+              child: TabBar(
+                physics: BouncingScrollPhysics(),
+                indicatorColor: Colors.transparent,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.red,
+                indicatorPadding:
+                    EdgeInsets.only(top: 6, bottom: 6, left: 0, right: 0),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24),
+                  color: Colors.red,
+                ),
+                isScrollable: true,
+                tabs: [
+                  Tab(
+                    text: "NEWS",
+                  ),
+                  Tab(
+                    text: "ABSENCES",
+                  ),
+                  Tab(
+                    text: "MAKEUP CLASSES",
+                  ),
+                ],
               ),
-              Tab(
-                text: "ABSENCES",
-              ),
-              Tab(
-                text: "MAKEUP CLASSES",
-              ),
-            ],
+            ),
           ),
         ),
         body: TabBarView(

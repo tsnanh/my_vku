@@ -7,6 +7,12 @@ import Flutter
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    
+    let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
+    let newsChannel = FlutterMethodChannel(name: "dev.tsnanh.myvku/news", binaryMessenger: controller.binaryMessenger)
+    newsChannel.setMethodCallHandler({
+        (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+    })
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

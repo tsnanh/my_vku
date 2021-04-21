@@ -1,17 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myvku/data/remote/news/news_repository.dart';
-import 'package:myvku/screens/news/pages/absence/cubit/absence_state.dart';
+import 'package:myvku/repository/news/news_repository.dart';
+import 'package:myvku/screens/main/main.dart';
 
-class AbsenceCubit extends Cubit<AbsenceState> {
-  final NewsRepository _repository = NewsRepository();
-  AbsenceCubit(AbsenceState initialState) : super(initialState);
+import '../../news_state.dart';
+
+class AbsenceCubit extends Cubit<NewsState> {
+  final NewsRepository _repository = getIt.get<NewsRepository>();
+  AbsenceCubit(NewsState initialState) : super(initialState);
 
   void getAbsences() async {
     try {
-      emit(AbsencesSuccess(await _repository.getAbsences()));
+      emit(NewsSuccess(await _repository.getAbsences()));
     } catch (e) {
       print(e);
-      emit(AbsencesError());
+      emit(NewsError());
     }
   }
 }
